@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Orders" table="orders">
+    <indexes>
+      <index name="fk_orders_users1_idx" columns="users_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="id_UNIQUE" columns="id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id"/>
+    <id name="users" association-key="true"/>
+    <field name="refToOrderId" type="integer" column="ref_to_order_id" nullable="true">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">Здесь может быть два типа: заказ и возврат. Так вот если есть возврат, то должна быть ссылка на заказ (ссылка на id)</option>
+      </options>
+    </field>
+    <field name="sum" type="decimal" column="sum" precision="10" scale="2" nullable="false"/>
+    <field name="status" type="smallint" column="status" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="comment">0 - выполняется
+1 - в ожидании
+2 - выполнен
+3 - отменён</option>
+      </options>
+    </field>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="true"/>
+    <field name="type" type="string" column="type" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <one-to-one field="users" target-entity="Users" fetch="LAZY">
+      <join-columns>
+        <join-column name="users_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+    <many-to-many field="products" target-entity="Products" inversed-by="orders" fetch="LAZY">
+      <join-table name="orders_has_products">
+        <join-columns>
+          <join-column name="orders_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="products_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

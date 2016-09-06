@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Transactions" table="transactions">
+    <indexes>
+      <index name="fk_transactions_orders1_idx" columns="orders_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="id_UNIQUE" columns="id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id"/>
+    <id name="orders" association-key="true"/>
+    <field name="sumTransactions" type="decimal" column="sum_transactions" precision="10" scale="2" nullable="false"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="true">
+      <options>
+        <option name="default">CURRENT_TIMESTAMP</option>
+      </options>
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at" nullable="true"/>
+    <one-to-one field="orders" target-entity="Orders" fetch="LAZY">
+      <join-columns>
+        <join-column name="orders_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>
