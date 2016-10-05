@@ -1,0 +1,47 @@
+nav{
+    background: url(../images/nav-menu.jpg) repeat-x;
+    height: 62px;
+}
+.navbar{
+    margin-bottom: 0;
+    border-radius: 0;
+}
+.navbar-inverse{
+    border: none;
+    background-color: none;
+}
+.input-group-addon{
+    background-color: #f7f7f7;
+    border: none;
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1197px;
+  }
+}
+@media (min-width: 992px) {
+    .col-md-offset-2 {
+        margin-left: 10.4%;
+    }
+    .main-content .products > .col-md-4{
+        width: 24.5%;
+        padding: 0;
+    }
+    .main-content .products > .col-md-8{
+        float: right;
+        width: 72.4%;
+    }
+    .main-content .products .col-md-4 .col-md-12{
+        padding: 0;
+    }
+    .main-content .attribute > .col-md-5{
+        width: 40%;
+        padding-right: 0;
+        margin-right: 2px;
+    }
+    .main-content .attribute > .col-md-7{
+        width: 54.7%;
+    }
+
+    
+}

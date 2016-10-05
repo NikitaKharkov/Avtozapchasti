@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Category
  *
- * @ORM\Table(name="category", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
+ * @ORM\Table(name="category", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_category_category1_idx", columns={"parent_id"})})
  * @ORM\Entity
  */
 class Category
@@ -38,10 +38,24 @@ class Category
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\OneToMany(targetEntitty="AppBundle\Entity\Category", mappedBy="parent")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
 
+    /**
+     * @var \AppBundle\Entity\Category
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="id")
+     */
+    private $parent;
+
+    
+    public function __construct() {
+        $this->parent = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -117,6 +131,20 @@ class Category
     }
 
     /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Category
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -124,5 +152,39 @@ class Category
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Add parent category
+     *
+     * @param \AppBundle\Entity\Category $parent
+     *
+     * @return Category
+     */
+    public function addParent(\AppBundle\Entity\Category $parent)
+    {
+        $this->parent[] = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Remove parent cateogories
+     *
+     * @param \AppBundle\Entity\Cateogory $parent
+     */
+    public function removeParent(\AppBundle\Entity\Category $parent)
+    {
+        $this->products->removeElement($parent);
+    }
+
+    /**
+     * Get parent categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

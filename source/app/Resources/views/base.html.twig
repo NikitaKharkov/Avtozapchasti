@@ -1,13 +1,148 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>{% block title %}ZZCompany{% endblock %}</title>
+
+        <!-- Bootstrap -->
+        <link href="{{ asset('css/bootstrap.css')}}" rel="stylesheet">
+        <link href="{{ asset('css/font-awesome.css')}}" rel="stylesheet">
+        <link href="{{ asset('css/style.css')}}" rel="stylesheet">
+        <link href="{{ asset('css/custom.css')}}" rel="stylesheet">
+        
+        {% block css %}{% endblock %}
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="contacts">   
+                    <div class="skype">
+                        <a href="skype:zzgroup">
+                            <img src="{{ asset('images/skype.png')}}" alt="skype:zzgroup">
+                            zzgroup
+                        </a>
+                    </div>
+                    <div class="mail">
+                        <a href="mail:info@zzgroup.com.ua">
+                            <img src="{{ asset('images/mail.png')}}" alt="mail:info@zzgroup.com.ua">
+                            info@zzgroup.com.ua
+                        </a>
+                    </div>
+                </div>
+                <div class="button-LK">
+                    <a href="#">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Личный кабинет</a>
+                </div>
+            </div>
+        </nav>
+
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">   
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="{{ asset('images/logo.png')}}">
+                            </a>    
+                            <div class="bg-logo"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">  
+                        <div class="header-content content-area">
+                            <div class="header-title">
+                                <h3>Мото, вело и бензо</h3>
+                                <h2>запчасти оптом</h2>
+                                <h4>широкий асортимент  -  низкие цены</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">    
+                        <div class="header-phone">
+                            <div class="row">
+                                <div>Время работы:</div> 
+                                <div>24/7 с 7:00 до 17:00</div>
+                            </div>
+                            <div class="row">
+                                <div>+38 (098) 357 67 13</div> 
+                                <div>+38 (098) 357 67 13</div>
+                                <div>+38 (098) 357 67 13</div>
+                            </div>    
+                        </div>
+                    </div>    
+                </div>     
+            </div>
+        </header>
+        <div class="header-content-overlay">
+
+            <!-- .container -->
+            <div class="container">
+
+                <!-- .row -->
+                <div class="row">
+
+                    <div class="bl-menu col-md-offset-2"> <!-- 1 -->
+                        <div class="header-content-feature">
+                            <a href="products.html">
+                                <i class="fa fa-dropbox" aria-hidden="true"></i>
+                                Товары
+                            </a>    
+                        </div>
+                    </div>
+
+                    <div class="bl-menu"> <!-- 2 -->
+                        <div class="header-content-feature">
+                            <a href="orders.html">
+                                <i class="fa fa-commenting-o"></i>
+                                Заказы
+                            </a>    
+                        </div>
+                    </div>
+
+                    <div class="bl-menu"> <!-- 3 -->
+                        <div class="header-content-feature">
+                            <a href="#">   
+                                <i class="fa fa-money"></i>
+                                Возвраты
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bl-menu"> <!-- 4 -->
+                        <div class="header-content-feature">
+                            <a href="#">
+                                <i class="fa fa-leanpub"></i>
+                                Расчёты
+                            </a>    
+                        </div>
+                    </div>
+
+                </div>
+                <!-- .row end -->
+
+            </div>
+            <!-- .container end -->
+
+        </div>
+
+    {% block content %}{% endblock %}
+
+    <script src="{{ asset('js/jquery-1.12.1.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('js/npm.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('js/myscript.js')}}" type="text/javascript"></script>
+
+    {% block javascripts %}{% endblock %}
+
     </body>
 </html>

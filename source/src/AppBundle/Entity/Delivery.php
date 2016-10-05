@@ -5,17 +5,17 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dostavka
+ * Delivery
  *
- * @ORM\Table(name="dostavka", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_dostavka_users1_idx", columns={"users_id"})})
+ * @ORM\Table(name="delivery", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_dostavka_users1_idx", columns={"users_id"})})
  * @ORM\Entity
  */
-class Dostavka
+class Delivery
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", nullable=false)
+     * @ORM\Column(name="type", type="string", length=255, nullable=false)
      */
     private $type;
 
@@ -54,7 +54,7 @@ class Dostavka
      *
      * @param string $type
      *
-     * @return Dostavka
+     * @return Delivery
      */
     public function setType($type)
     {
@@ -78,7 +78,7 @@ class Dostavka
      *
      * @param string $name
      *
-     * @return Dostavka
+     * @return Delivery
      */
     public function setName($name)
     {
@@ -102,7 +102,7 @@ class Dostavka
      *
      * @param integer $id
      *
-     * @return Dostavka
+     * @return Delivery
      */
     public function setId($id)
     {
@@ -126,7 +126,7 @@ class Dostavka
      *
      * @param \AppBundle\Entity\Users $users
      *
-     * @return Dostavka
+     * @return Delivery
      */
     public function setUsers(\AppBundle\Entity\Users $users)
     {

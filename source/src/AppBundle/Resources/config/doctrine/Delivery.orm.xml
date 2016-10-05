@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="AppBundle\Entity\Dostavka" table="dostavka">
+  <entity name="AppBundle\Entity\Delivery" table="delivery">
     <indexes>
       <index name="fk_dostavka_users1_idx" columns="users_id"/>
     </indexes>
@@ -9,7 +9,7 @@
     </unique-constraints>
     <id name="id" type="integer" column="id"/>
     <id name="users" association-key="true"/>
-    <field name="type" type="string" column="type" nullable="false">
+    <field name="type" type="string" column="type" length="255" nullable="false">
       <options>
         <option name="fixed"/>
       </options>

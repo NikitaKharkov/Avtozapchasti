@@ -1,0 +1,59 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Transactions
+ *
+ * @ORM\Table(name="transactions", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_transactions_orders1_idx", columns={"orders_id"})})
+ * @ORM\Entity
+ */
+class Transactions
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sum_transactions", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $sumTransactions;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $id;
+
+    /**
+     * @var \AppBundle\Entity\Orders
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Orders")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="orders_id", referencedColumnName="id")
+     * })
+     */
+    private $orders;
+
+
+}
+
