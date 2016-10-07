@@ -14,10 +14,13 @@
         <option name="fixed"/>
       </options>
     </field>
-    <one-to-one field="users" target-entity="Users" fetch="LAZY">
+    <many-to-one field="users" target-entity="Users" inversed-by="telephone" fetch="LAZY">
+        <join-column name="users_id" referenced-column-name="id" />
+    </many-to-one>
+<!--    <one-to-one field="users" target-entity="Users" fetch="LAZY">
       <join-columns>
         <join-column name="users_id" referenced-column-name="id"/>
       </join-columns>
-    </one-to-one>
+    </one-to-one>-->
   </entity>
 </doctrine-mapping>

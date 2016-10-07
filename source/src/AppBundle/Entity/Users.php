@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Users
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
  * @ORM\Entity
  */
-class Users
+class Users implements UserInterface, \Serializable
 {
     /**
      * @var string
@@ -77,8 +78,17 @@ class Users
      */
     private $id;
 
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Telephone", mappedBy="users")
+     */
+    private $telephone;
+    
 
-
+    public function __construct() {
+        $this->telephone = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Set fio
      *
@@ -89,7 +99,7 @@ class Users
     public function setFio($fio)
     {
         $this->fio = $fio;
-
+        \Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface::class;
         return $this;
     }
 
@@ -208,7 +218,7 @@ class Users
      */
     public function setRole($role)
     {
-        $this->role = $role;
+        $this->role = strtolower(substr($role, 5));
 
         return $this;
     }
@@ -220,7 +230,7 @@ class Users
      */
     public function getRole()
     {
-        return $this->role;
+        return "ROLE_".strtoupper($this->role);
     }
 
     /**
@@ -280,4 +290,79 @@ class Users
     {
         return $this->id;
     }
+    
+    /**
+     * Add telephone
+     *
+     * @param \AppBundle\Entity\Telephone $tel
+     $
+     * @return Category
+     */
+    public function addTelephone(\AppBundle\Entity\Telephone $tel)
+    {
+        $this->telephone[] = $tel;
+
+        return $this;
+    }
+
+    /**
+     * Remove telephone
+     *
+     * @param \AppBundle\Entity\Telephone $tel
+     */
+    public function removeTelephone(\AppBundle\Entity\Telephone $tel)
+    {
+        $this->products->removeElement($tel);
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+    
+
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->fio,
+            $this->discount
+        ]);
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,    
+            $this->fio,
+            $this->discount
+        ) = unserialize($serialized);
+    }
+
+
+    public function eraseCredentials()
+    {
+        
+    }
+
+    public function getRoles()
+    {
+        return [$this->getRole()];
+    }
+
+    public function getSalt()
+    {
+        
+    }
+
+    public function getUsername()
+    {
+        return $this->getTelephone()->first()->getTel();
+    }
+
 }
