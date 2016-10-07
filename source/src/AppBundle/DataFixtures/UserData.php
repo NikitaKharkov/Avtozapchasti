@@ -7,8 +7,19 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Users;
 
-class UserData extends AbstractFixture implements OrderedFixtureInterface
+class UserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
+    
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+    
     public function load(ObjectManager $manager)
     {
         
@@ -18,6 +29,11 @@ class UserData extends AbstractFixture implements OrderedFixtureInterface
         $role = 'user';
         $disc = [5, 10, 20];
         
+        $this->container->get();
+
+        $encoder = $this->container->get('security.password_encoder');
+        
+        
         for ($i = 0; $i < 2; $i++) {
             $user = new Users();
             $user->setFio($names[$i]);
@@ -25,6 +41,10 @@ class UserData extends AbstractFixture implements OrderedFixtureInterface
             $user->setEmail($emails[$i]);
             $user->setRole($role);
             $user->setDiscount($disc[$i]);
+            
+            $password = $encoder->encodePassword($user, 'admin'.$i);
+            $user->setPassword($password);
+            
             
             $manager->persist($user);
             $manager->flush();

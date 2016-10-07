@@ -33,10 +33,8 @@ class Telephone
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="users_id", referencedColumnName="id")
-     * })
+     * @ManyToOne(targetEntity="AppBundle\Entity\Users", inversedBy="telephone")
+     * @JoinColumn(name="users_id", referencedColumnName="id")
      */
     private $users;
 
