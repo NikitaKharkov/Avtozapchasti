@@ -24,7 +24,7 @@ class Category
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
-    private $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt;
 
     /**
      * @var \DateTime
@@ -36,25 +36,28 @@ class Category
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\OneToMany(targetEntitty="AppBundle\Entity\Category", mappedBy="parent")
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     * 
      */
     private $id;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Category", mappedBy="parent")
+     */
+    private $children;
+    
     /**
      * @var \AppBundle\Entity\Category
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="children", cascade={"persist"})
      */
     private $parent;
 
     
     public function __construct() {
-        $this->parent = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -155,36 +158,36 @@ class Category
     }
 
     /**
-     * Add parent category
+     * Add children category
      *
-     * @param \AppBundle\Entity\Category $parent
+     * @param \AppBundle\Entity\Category $children
      *
      * @return Category
      */
-    public function addParent(\AppBundle\Entity\Category $parent)
+    public function addChildren(\AppBundle\Entity\Category $children)
     {
-        $this->parent[] = $parent;
+        $this->children[] = $children;
 
         return $this;
     }
 
     /**
-     * Remove parent cateogories
+     * Remove children cateogories
      *
-     * @param \AppBundle\Entity\Cateogory $parent
+     * @param \AppBundle\Entity\Cateogory $children
      */
-    public function removeParent(\AppBundle\Entity\Category $parent)
+    public function removeChildren(\AppBundle\Entity\Category $children)
     {
-        $this->products->removeElement($parent);
+        $this->products->removeElement($children);
     }
 
     /**
-     * Get parent categories
+     * Get children categories
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getParent()
+    public function getChildren()
     {
-        return $this->parent;
+        return $this->children;
     }
 }

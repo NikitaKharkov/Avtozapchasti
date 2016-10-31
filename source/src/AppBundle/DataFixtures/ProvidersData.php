@@ -5,9 +5,9 @@ namespace AppBundle\DataFixtures;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Entity\Providers;
+use AppBundle\Entity\Provider;
 
-class ProvidersData extends AbstractFixture implements OrderedFixtureInterface
+class ProviderData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -17,13 +17,13 @@ class ProvidersData extends AbstractFixture implements OrderedFixtureInterface
         
         for ($i = 0; $i < 4; $i++) {
 
-            $prov = new Providers();
+            $prov = new Provider();
             
-            $prov->setName($titles[random_int(0, 3)]);
+            $prov->setName($titles[$i]);
             
             $manager->persist($prov);
             
-            $this->addReference('providers'.$i, $prov);
+            $this->addReference('provider'.$i, $prov);
         }
         
         $manager->flush();
@@ -32,6 +32,6 @@ class ProvidersData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 1;
+        return 5;
     }
 }

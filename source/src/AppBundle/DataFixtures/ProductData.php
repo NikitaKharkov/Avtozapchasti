@@ -5,9 +5,9 @@ namespace AppBundle\DataFixtures;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Entity\Products;
+use AppBundle\Entity\Product;
 
-class ProductsData extends AbstractFixture implements OrderedFixtureInterface
+class ProductData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -25,7 +25,7 @@ class ProductsData extends AbstractFixture implements OrderedFixtureInterface
         $imgPath = ['images/products/img1.jpg', 'images/products/img2.jpg', 'images/products/img3.jpg'];
         
         for ($i = 0; $i < 40; $i++) {
-            $prod = new Products();
+            $prod = new Product();
             
             $artIndex   = random_int(0, 6);
             $descIndex  = random_int(0, 4);
@@ -57,6 +57,6 @@ class ProductsData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 1;
+        return 6;
     }
 }

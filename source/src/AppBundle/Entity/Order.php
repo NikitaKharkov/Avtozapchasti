@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Orders
  *
- * @ORM\Table(name="orders", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_orders_users1_idx", columns={"users_id"})})
+ * @ORM\Table(name="`order`", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_orders_users1_idx", columns={"users_id"})})
  * @ORM\Entity
  */
-class Orders
+class Order
 {
     /**
      * @var integer
@@ -22,14 +22,14 @@ class Orders
     /**
      * @var string
      *
-     * @ORM\Column(name="sum", type="decimal", precision=10, scale=2, nullable=false)
+     * @ORM\Column(name="`sum`", type="decimal", precision=10, scale=2, nullable=false)
      */
     private $sum;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="status", type="smallint", nullable=false)
+     * @ORM\Column(name="`status`", type="smallint", nullable=false)
      */
     private $status;
 
@@ -38,7 +38,7 @@ class Orders
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
-    private $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt;
 
     /**
      * @var \DateTime
@@ -50,7 +50,7 @@ class Orders
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", nullable=true)
+     * @ORM\Column(name="`type`", type="string", nullable=true)
      */
     private $type;
 
@@ -59,16 +59,14 @@ class Orders
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \AppBundle\Entity\Users
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Users")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="users_id", referencedColumnName="id")
      * })
@@ -78,24 +76,16 @@ class Orders
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Products", inversedBy="orders")
-     * @ORM\JoinTable(name="orders_has_products",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="orders_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="products_id", referencedColumnName="id")
-     *   }
-     * )
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Product", mappedBy="order")
      */
-    private $products;
+    private $orderProduct;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderProduct = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -274,7 +264,7 @@ class Orders
      *
      * @return Orders
      */
-    public function setUsers(\AppBundle\Entity\Users $users)
+    public function setUsers(\AppBundle\Entity\User $users)
     {
         $this->users = $users;
 
@@ -298,9 +288,9 @@ class Orders
      *
      * @return Orders
      */
-    public function addProduct(\AppBundle\Entity\Products $product)
+    public function addProduct(\AppBundle\Entity\Product $product)
     {
-        $this->products[] = $product;
+        $this->orderProduct[] = $product;
 
         return $this;
     }
@@ -310,9 +300,9 @@ class Orders
      *
      * @param \AppBundle\Entity\Products $product
      */
-    public function removeProduct(\AppBundle\Entity\Products $product)
+    public function removeProduct(\AppBundle\Entity\Product $product)
     {
-        $this->products->removeElement($product);
+        $this->orderProduct->removeElement($product);
     }
 
     /**
@@ -322,6 +312,6 @@ class Orders
      */
     public function getProducts()
     {
-        return $this->products;
+        return $this->orderProduct;
     }
 }

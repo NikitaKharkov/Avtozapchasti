@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Products
  *
- * @ORM\Table(name="products", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_products_category1_idx", columns={"category_id"}), @ORM\Index(name="fk_products_providers1_idx", columns={"providers_id"})})
+ * @ORM\Table(name="product", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_products_category1_idx", columns={"category_id"}), @ORM\Index(name="fk_products_providers1_idx", columns={"providers_id"})})
  * @ORM\Entity
  */
-class Products
+class Product
 {
     /**
      * @var string
@@ -59,7 +59,7 @@ class Products
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
-    private $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt;
 
     /**
      * @var \DateTime
@@ -73,15 +73,13 @@ class Products
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \AppBundle\Entity\Category
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Category")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
@@ -92,7 +90,7 @@ class Products
     /**
      * @var \AppBundle\Entity\Providers
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Providers")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Provider")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="providers_id", referencedColumnName="id")
      * })
@@ -102,16 +100,16 @@ class Products
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Orders", mappedBy="products")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Order", mappedBy="product")
      */
-    private $orders;
+    private $productOrder;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->productOrder = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -362,7 +360,7 @@ class Products
      *
      * @return Products
      */
-    public function setProviders(\AppBundle\Entity\Providers $providers = null)
+    public function setProviders(\AppBundle\Entity\Provider $providers = null)
     {
         $this->providers = $providers;
 
@@ -386,9 +384,9 @@ class Products
      *
      * @return Products
      */
-    public function addOrder(\AppBundle\Entity\Orders $order)
+    public function addOrder(\AppBundle\Entity\Order $order)
     {
-        $this->orders[] = $order;
+        $this->productOrder[] = $order;
 
         return $this;
     }
@@ -398,9 +396,9 @@ class Products
      *
      * @param \AppBundle\Entity\Orders $order
      */
-    public function removeOrder(\AppBundle\Entity\Orders $order)
+    public function removeOrder(\AppBundle\Entity\Order $order)
     {
-        $this->orders->removeElement($order);
+        $this->productOrder->removeElement($order);
     }
 
     /**
@@ -410,6 +408,6 @@ class Products
      */
     public function getOrders()
     {
-        return $this->orders;
+        return $this->productOrder;
     }
 }

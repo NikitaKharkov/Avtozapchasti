@@ -15,7 +15,7 @@ class DeliveryData extends AbstractFixture implements OrderedFixtureInterface
         $types = ['npochta', 'delivery', 'intime'];
         $names = ['Отделение №2', 'Отделение №12', 'Отделение №15', 'Борщаговка', 'Плехановка'];
         
-        $userIndex = 0;
+        $userIndex = -1;
         
         for ($i = 0; $i < 9; $i++) {
             $del = new Delivery();
@@ -40,6 +40,6 @@ class DeliveryData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 1;
+        return 3;
     }
 }

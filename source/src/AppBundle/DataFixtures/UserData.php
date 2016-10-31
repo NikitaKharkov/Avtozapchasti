@@ -5,7 +5,9 @@ namespace AppBundle\DataFixtures;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Entity\Users;
+use AppBundle\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class UserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -29,13 +31,11 @@ class UserData extends AbstractFixture implements OrderedFixtureInterface, Conta
         $role = 'user';
         $disc = [5, 10, 20];
         
-        $this->container->get();
-
         $encoder = $this->container->get('security.password_encoder');
         
         
-        for ($i = 0; $i < 2; $i++) {
-            $user = new Users();
+        for ($i = 0; $i < 3; $i++) {
+            $user = new User();
             $user->setFio($names[$i]);
             $user->setAddress($address[$i]);
             $user->setEmail($emails[$i]);
@@ -48,7 +48,6 @@ class UserData extends AbstractFixture implements OrderedFixtureInterface, Conta
             
             $manager->persist($user);
             $manager->flush();
-            
             $this->addReference('user'.$i, $user);
         }
         

@@ -24,17 +24,15 @@ class Telephone
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue
      */
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Users
+     * @var \AppBundle\Entity\User
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ManyToOne(targetEntity="AppBundle\Entity\Users", inversedBy="telephone")
-     * @JoinColumn(name="users_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="telephone")
+     * @ORM\JoinColumn(name="users_id", referencedColumnName="id")
      */
     private $users;
 
@@ -95,7 +93,7 @@ class Telephone
      *
      * @return Telephone
      */
-    public function setUsers(\AppBundle\Entity\Users $users)
+    public function setUsers(\AppBundle\Entity\User $users)
     {
         $this->users = $users;
 
@@ -107,7 +105,7 @@ class Telephone
      *
      * @return \AppBundle\Entity\Users
      */
-    public function getUsers()
+    public function getUser()
     {
         return $this->users;
     }

@@ -1,7 +1,7 @@
 security:
 
     encoders:
-        AppBundle\Entity\Users:
+        AppBundle\Entity\User:
             algorithm: bcrypt
             cost: 12
     
@@ -11,7 +11,7 @@ security:
     providers:
         myProvider:
             entity:
-                class: AppBundle:Users
+                class: AppBundle:User
 
     firewalls:
         dev:

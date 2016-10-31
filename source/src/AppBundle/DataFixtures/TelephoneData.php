@@ -12,9 +12,14 @@ class TelephoneData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         
-        $tel = ['+380935813123', '+38093583143', '+380505133123', '+380735094315', '+3806701249123', '+38093869584', '+38097394103', '+38050003141','+38067123143'];
+        $telNum = ['+380935813123', '+38093583143', '+380505133123', '+380735094315', '+3806701249123', '+38093869584', '+38097394103', '+38050003141','+38067123143'];
         
-        $userIndex = 0;
+        $userIndex = -1;
+        
+//        dump('user'.$userIndex);
+//        dump($this->getReference('user'.$userIndex));
+//        die;
+        
         
         for ($i = 0; $i < 9; $i++) {
             
@@ -24,7 +29,7 @@ class TelephoneData extends AbstractFixture implements OrderedFixtureInterface
                 $userIndex++;
             }
             
-            $tel->setTel($tel[$i]);
+            $tel->setTel($telNum[$i]);
             $tel->setUsers($this->getReference('user'.$userIndex));
             
             $manager->persist($tel);
@@ -36,6 +41,6 @@ class TelephoneData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }

@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Transactions
  *
- * @ORM\Table(name="transactions", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_transactions_orders1_idx", columns={"orders_id"})})
+ * @ORM\Table(name="transaction", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_transactions_orders1_idx", columns={"orders_id"})})
  * @ORM\Entity
  */
-class Transactions
+class Transaction
 {
     /**
      * @var string
@@ -24,7 +24,7 @@ class Transactions
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
-    private $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt;
 
     /**
      * @var \DateTime
@@ -38,16 +38,14 @@ class Transactions
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \AppBundle\Entity\Orders
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Orders")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Order")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="orders_id", referencedColumnName="id")
      * })
@@ -159,7 +157,7 @@ class Transactions
      *
      * @return Transactions
      */
-    public function setOrders(\AppBundle\Entity\Orders $orders)
+    public function setOrders(\AppBundle\Entity\Order $orders)
     {
         $this->orders = $orders;
 

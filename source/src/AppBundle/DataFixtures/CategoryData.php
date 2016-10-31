@@ -26,18 +26,20 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface
         
         $manager->flush();
         
-        $mainCat = new Category();
-        $mainCat->setTitle('Пилы');
-        
         $cat = new Category();
         $cat1 = new Category();
-        $cat->setTitle('Бензопила')
-            ->addParent($mainCat);
-        $cat1->setTitle('Электропила')
-             ->addParent($mainCat);
+        $cat->setTitle('Бензопила');
+        $cat1->setTitle('Электропила');
         
+        $manager->persist($cat);
+        $manager->persist($cat1);
         
-        
+        $mainCat = new Category();
+        $mainCat->setTitle('Пилы')
+                ->addChildren($cat)
+                ->addChildren($cat1)
+        ;
+
         $manager->persist($mainCat);
         $manager->flush();
         
@@ -49,7 +51,7 @@ class CategoryData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 1;
+        return 4;
     }
 
 }

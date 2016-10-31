@@ -8,10 +8,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Users
  *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})})
  * @ORM\Entity
  */
-class Users implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @var string
@@ -60,7 +60,7 @@ class Users implements UserInterface, \Serializable
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
-    private $createdAt = 'CURRENT_TIMESTAMP';
+    private $createdAt;
 
     /**
      * @var \DateTime
@@ -362,7 +362,7 @@ class Users implements UserInterface, \Serializable
 
     public function getUsername()
     {
-        return $this->getTelephone()->first()->getTel();
+        return $this->fio;
     }
 
 }

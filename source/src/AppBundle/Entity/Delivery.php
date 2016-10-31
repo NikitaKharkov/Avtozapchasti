@@ -31,16 +31,14 @@ class Delivery
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var \AppBundle\Entity\Users
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Users")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="users_id", referencedColumnName="id")
      * })
@@ -128,7 +126,7 @@ class Delivery
      *
      * @return Delivery
      */
-    public function setUsers(\AppBundle\Entity\Users $users)
+    public function setUsers(\AppBundle\Entity\User $users)
     {
         $this->users = $users;
 
