@@ -1,0 +1,45 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Telephone
+ *
+ * @ORM\Table(name="telephone", uniqueConstraints={@ORM\UniqueConstraint(name="id_UNIQUE", columns={"id"})}, indexes={@ORM\Index(name="fk_telephone_users_idx", columns={"users_id"})})
+ * @ORM\Entity
+ */
+class Telephone
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tel", type="string", length=45, nullable=false)
+     */
+    private $tel;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $id;
+
+    /**
+     * @var \AppBundle\Entity\Users
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="users_id", referencedColumnName="id")
+     * })
+     */
+    private $users;
+
+
+}
+

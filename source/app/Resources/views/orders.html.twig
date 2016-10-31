@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Orders</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+	<link href="css/jquery-ui.css" rel="stylesheet">
+	
+    <link rel="stylesheet" href="/resources/demos/style.css">
+	
+	<script src="js/jquery-1.12.1.js" type="text/javascript"></script>
+	<script src="js/bootstrap.js" type="text/javascript"></script>
+	<script src="js/npm.js" type="text/javascript"></script>
+	<script src="js/myscript.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.js" type="text/javascript"></script>
+   
+
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+       <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="contacts">   
+                    <div class="skype">
+                        <a href="skype:zzgroup">
+                            <img src="images/skype.png" alt="skype:zzgroup">
+                            zzgroup
+                        </a>
+                    </div>
+                    <div class="mail">
+                        <a href="mail:info@zzgroup.com.ua">
+                            <img src="images/mail.png" alt="mail:info@zzgroup.com.ua">
+                            info@zzgroup.com.ua
+                        </a>
+                    </div>
+                </div>
+                <div class="button-LK">
+                    <a href="#">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Личный кабинет</a>
+                </div>
+            </div>
+        </nav>
+        
+        <header>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">   
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="images/logo.png">
+                            </a>    
+                            <div class="bg-logo"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">  
+                        <div class="header-content content-area">
+                            <div class="header-title">
+                                <h3>Мото, вело и бензо</h3>
+                                <h2>запчасти оптом</h2>
+                                <h4>широкий асортимент  -  низкие цены</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">    
+                        <div class="header-phone">
+                            <div class="row">
+                                <div>Время работы:</div> 
+                                <div>24/7 с 7:00 до 17:00</div>
+                            </div>
+                            <div class="row">
+                                <div>+38 (098) 357 67 13</div> 
+                                <div>+38 (098) 357 67 13</div>
+                                <div>+38 (098) 357 67 13</div>
+                            </div>    
+                        </div>
+                    </div>    
+                </div>     
+            </div>
+        </header>
+        <div class="header-content-overlay">
+            	
+                <!-- .container -->
+                <div class="container">
+                	
+                    <!-- .row -->
+                    <div class="row">
+                    	
+                        <div class="bl-menu col-md-offset-2"> <!-- 1 -->
+                        	<div class="header-content-feature">
+                                <a href="products.html">
+                                    <i class="fa fa-dropbox" aria-hidden="true"></i>
+                                    Товары
+                                </a>    
+                            </div>
+                        </div>
+                        
+                        <div class="bl-menu"> <!-- 2 -->
+                        	<div class="header-content-feature">
+                                <a href="orders.html" class="active">
+                                    <i class="fa fa-commenting-o"></i>
+                                    Заказы
+                                </a>    
+                            </div>
+                        </div>
+                        
+                        <div class="bl-menu"> <!-- 3 -->
+                        	<div class="header-content-feature">
+                                <a href="#">   
+                                    <i class="fa fa-money"></i>
+                                    Возвраты
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bl-menu"> <!-- 4 -->
+                        	<div class="header-content-feature">
+                                <a href="#">
+                                    <i class="fa fa-leanpub"></i>
+                                    Расчёты
+                                </a>    
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- .row end -->
+                    
+                </div>
+                <!-- .container end -->
+                
+            </div>
+                
+        <div class="main-content container fluid-container">
+            <div class="row">
+                <div class="period">Заказы за период: 
+                    <input type="text" id="datepicker"> - 
+                    <input type="text" id="datepicker">       
+                </div>
+                <div class="preview">
+                    <div class="icon-preview">
+                        <img src="images/view.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="sidebar" class="col-md-5 orders">
+                    <div class="row">
+                        <table class="all-items zakaz-za-period">
+                                    <thead>
+                                        <tr>
+                                            <th>Дата</th>
+                                            <th>Номер</th>
+                                            <th>Сумма ($)</th>
+                                            <th>Статус</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>    
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="ok">Выполнен</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="delivery">Доставка</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="cancel">Отменен</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="cancel">Отменен</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="delivery">Доставка</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="processing">Обработка</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="processing">Обработка</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="paid">Оплачен</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="paid">Оплачен</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="paid">Оплачен</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="paid">Оплачен</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="paid">Оплачен</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="paid">Оплачен</td>
+                                        </tr>
+                                        <tr>
+                                            <td>20.08.2016</td>
+                                            <td>000001</td>
+                                            <td>20 495.90</td>
+                                            <td class="paid">Оплачен</td>
+                                        </tr>
+                            </tbody>
+                        </table>
+                    </div>    
+                </div>
+                <div class="col-md-7" id="content">
+                    <div class="row search-btn">
+                        <div class="col-md-6">
+                                <div class="input-group input-order stylish-input-group">
+                                    <input type="search" name="search" placeholder="Поиск по артикулу или наименованию" />
+                                    <span class="input-group-addon">
+                                        <button type="submit">
+                                            <img src="images/search.png" />
+                                        </button>  
+                                    </span>
+                            </div>        
+                        </div>
+                        <div class="col-md-3">
+                            <div id="btn_excel">
+                                <button type="submit" class="btn">Выгрузить в Excel</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="btn_print">
+                                <button type="submit" class="btn">Распечатать</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="all-items main-table">
+                                <thead>
+                                    <tr>
+                                        <th>Артикул</th>
+                                        <th>Наименование</th>
+                                        <th>Цена ($)<br />Скидка <span>5%</span></th>
+                                        <th>Кол-во</th>
+                                        <th>Сумма ($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>    
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A-635</td>
+                                        <td>Амортизатор AD100, AXIS, BWS, JOG90 300mm, регулируемый NDT (красный металлик)</td>
+                                        <td>6.90</td>
+                                        <td>20</td>
+                                        <td>2 568.90</td>
+                                    </tr>
+                                   
+                                </tbody>    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row bottom-row">
+                <div class="btn_submit">
+                     <button type="submit" class="btn">Подтвердить</button>
+                </div>
+                <div class="total">
+                    20 495.90
+                </div>
+                <div class="sum">
+                    <div>Сумма</div>
+                    <div>скидка <span>50%</span></div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.js"></script>
+  </body>
+</html>
