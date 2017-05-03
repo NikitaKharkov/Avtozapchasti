@@ -1,0 +1,31 @@
+db:
+    image: umputun/mongo-auth
+    restart: always
+    container_name: ibe_hdb
+    environment:
+        MONGO_PASSWD: app
+
+application:
+    image: debian:jessie
+    container_name: ibe_happ
+    volumes: 
+        - ../:/var/www/ibe-hotel-api
+    tty: true
+
+php:
+    build: php
+    restart: always
+    container_name: ibe_hphp
+    links:
+        - db
+    volumes_from:
+        - application
+
+nginx:
+    build: nginx
+    restart: always
+    container_name: ibe_hnginx
+    links:
+        - php
+    volumes_from:
+        - application
