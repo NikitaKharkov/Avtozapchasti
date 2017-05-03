@@ -1,0 +1,55 @@
+version: 2
+jobs:
+    build:
+        docker:
+            - image: circleci/php:7.1
+        working_directory: ~/project
+        steps:
+          - checkout
+          - setup_remote_docker
+          - restore_cache:
+              key: projectName-{{ checksum "~/project/source/composer.json" }}
+              paths:
+                - ~/project/source/vendor
+                - ~/docker
+          - run:
+              name: Install Docker client
+              command: |
+                  VER="17.03.0-ce"
+                  curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+                  tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+                  mv -fv /tmp/docker/* /usr/bin
+          - run:
+              name: Install Docker Compose
+              command: |
+                curl -L https://github.com/docker/coose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+                chmod +x /usr/local/bin/docker-compose
+          - run:
+              name: Restore docker images
+              command: |
+                mkdir -p docker
+                if [[ -e ~/docker/mongo.tar ]]; then docker load -i ~/docker/mongo.tar; fi
+                if [[ -e ~/docker/php.tar ]]; then docker load -i ~/docker/php.tar; fi
+                if [[ -e ~/docker/nginx.tar ]]; then docker load -i ~/docker/nginx.tar; fi
+          - run:
+              name: Prepare project to run test
+              command: |
+                docker-compose -f ~/project/source/dockerForTest/docker-compose.yml up -d --build
+                docker exec -it ibe_hphp ls -la
+                docker exec -it ibe_hphp composer install --no-interaction
+                docker exec -it ibe_hphp app/console cache:clear -e dev
+          - run:
+              name: Saving images to cache
+              command: |
+                docker save umputun/mongo-auth > ~/docker/mongo.tar
+                docker save php > ~/docker/php.tar
+                docker save nginx > ~/docker/nginx.tar
+          - run:
+              name: Run phpunit tests
+              command: |
+                docker exec -it ibe_hphp vendor/bin/phpunit
+          - save_cache:
+              key: projectName-{{ checksum "~/project/source/composer.json" }}
+              paths:
+                - ~/project/source/vendor
+                - ~/docker
